@@ -8,10 +8,11 @@ locals {
   ssh_user        = "ubuntu"
   key_name        = "Java_key"
   private_key_path = "/home/ubuntu/mykeys/Java_key.pem"
+  private_key_path2 = "/home/ubuntu/mykeys2/Java_key.pem"
 }
 
-resource "aws_security_group" "Java_proj3" {
-  name_prefix = "Java_proj3"
+resource "aws_security_group" "Java_proj" {
+  name_prefix = "Java_proj"
   vpc_id      = local.vpc_id
 
   // Ingress rules
@@ -51,7 +52,7 @@ resource "aws_instance" "Java_web" {
   key_name      = local.key_name
   associate_public_ip_address = true
   #  vpc_id     = local.vpc_id
-  security_groups = [aws_security_group.Java_proj3.name]
+  security_groups = [aws_security_group.Java_proj.name]
 
   tags = {
     Name = "Java test"
@@ -60,7 +61,7 @@ resource "aws_instance" "Java_web" {
   connection {
     type        = "ssh"
     user        = local.ssh_user
-    private_key = file(local.private_key_path)
+    #private_key = file(local.private_key_path2)
     host        = self.public_ip
   }
 
@@ -75,7 +76,7 @@ resource "aws_instance" "Java_web" {
 
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i inventory config.yml"
+    command = "ansible-playbook -i inventory config.yml --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
   }
 
 }
