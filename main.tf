@@ -58,7 +58,7 @@ resource "aws_instance" "Java_web" {
     Name = "Java test"
   }
   provisioner "local-exec" {
-    command = "echo '${aws_instance.example.public_ip}' > ansible_inventory.txt"
+    command = "echo '${aws_instance.Java_web.public_ip}' > ansible_inventory.txt"
   }
   
 
