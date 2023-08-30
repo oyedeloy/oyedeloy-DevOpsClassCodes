@@ -75,6 +75,6 @@ resource "null_resource" "run_ansible" {
   depends_on = [aws_instance.Java_web]
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i host1 try.yml --user=ubuntu --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
+    command = "ansible-playbook -i host1 config.yml --user=ubuntu --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
   }
 }
