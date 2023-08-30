@@ -70,7 +70,7 @@ resource "aws_instance" "Java_web" {
 
    provisioner "local-exec" {
     #To populate the Ansible inventory file
-    command = "sudo echo ${self.public_ip} > /home/ubuntu/DevOpsClassCodes/inventory"
+    command = "sudo echo ${self.public_ip} > inventory"
   }
 
 
