@@ -70,7 +70,7 @@ resource "aws_instance" "Java_web" {
   }
 
 provisioner "local-exec" {
-    command = "ansible-playbook -i myhosts.txt config.yml --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
+    command = "ansible-playbook -i host1 congig.yml --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
  }
 
 }

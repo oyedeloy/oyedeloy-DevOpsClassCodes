@@ -1,0 +1,10 @@
+---
+
+- name: Copy files to EC2 instance
+  hosts: all
+  become: yes
+  tasks:
+    - name: copy
+      copy:  
+        src: /tmp/src_file
+        dest: /home/ubuntu
