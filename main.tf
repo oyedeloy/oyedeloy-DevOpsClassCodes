@@ -82,8 +82,8 @@ resource "null_resource" "save_ip" {
 
 
 
-  provisioner "local-exec" {
-    command = "ansible-playbook -i myhosts.txt config.yml --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
-  }
+ # provisioner "local-exec" {
+    #command = "ansible-playbook -i myhosts.txt config.yml --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
+ #}
 
 

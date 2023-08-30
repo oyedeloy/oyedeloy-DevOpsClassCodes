@@ -42,6 +42,7 @@ pipeline {
           sh 'terraform init'
           sh 'terraform plan'
           sh 'terraform apply -auto-approve'
+          sh "ansible-playbook -i myhosts.txt config.yml --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
          }
       }
     }
