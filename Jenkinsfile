@@ -5,9 +5,7 @@ pipeline {
         AWS_REGION = 'us-east-2'
     }
 
-    parameters {
-        string(name: 'WAR_SAVE_LOCATION', defaultValue: 'war/', description: 'Specify the location to save the WAR file')
-    }
+    
 
     stages {
         stage('Compile') {
@@ -48,4 +46,5 @@ pipeline {
       }
     }
 
+    
 }
