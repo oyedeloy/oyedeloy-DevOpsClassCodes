@@ -61,6 +61,9 @@ resource "aws_instance" "Java_web" {
     command = "echo '${aws_instance.Java_web.public_ip}' > ansible_inventory.txt"
   }
   
+  provisioner "local-exec" {
+    command = "ansible-playbook -i host1 congig.yml --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
+ }
 
   connection {
     type        = "ssh"
@@ -69,9 +72,7 @@ resource "aws_instance" "Java_web" {
     host        = self.public_ip
   }
 
-provisioner "local-exec" {
-    command = "ansible-playbook -i host1 congig.yml --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
- }
+
 
 }
 
