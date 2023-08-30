@@ -61,6 +61,7 @@ resource "aws_instance" "Java_web" {
     command = "echo '${aws_instance.Java_web.public_ip}' > ansible_inventory.txt"
   }
   
+  
   connection {
     type        = "ssh"
     user        = local.ssh_user
@@ -68,15 +69,12 @@ resource "aws_instance" "Java_web" {
     host        = self.public_ip
   }
 
+resource "null_resource" "run_ansible" {
+  depends_on = [aws_instance.example]
 
-
+  provisioner "local-exec" {
+    command = "ansible-playbook -i host1 try.yml --user=ubuntu --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
+  }
 }
 
-
-
-
-  
-
-
-
-
+}
