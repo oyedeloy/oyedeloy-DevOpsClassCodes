@@ -42,9 +42,8 @@ pipeline {
           sh 'terraform init'
           sh 'terraform plan'
           sh 'terraform apply -auto-approve'
+          sh "ansible-playbook -i host1 congig.yml --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
 
-         }
-      }
     }
 
     
