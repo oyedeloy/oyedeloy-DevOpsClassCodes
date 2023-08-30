@@ -64,6 +64,7 @@ resource "aws_instance" "Java_web" {
     #private_key = file(local.private_key_path2)
     host        = self.public_ip
   }
+}
 
 
 
@@ -85,4 +86,4 @@ resource "null_resource" "save_ip" {
     command = "ansible-playbook -i myhosts.txt config.yml --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
   }
 
-}
+
