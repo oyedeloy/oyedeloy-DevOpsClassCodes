@@ -1,52 +1,56 @@
-pipeline{
-	agent any
-	tools{
-		maven "test-maven"
-	}
-      stages{
-           stage('Checkout'){
-	    
-               steps{
-		 echo 'cloning..'
-                 git 'https://github.com/akshu20791/DevOpsClassCodes.git'
-              }
-          }
-          stage('Compile'){
-             
-              steps{
-                  echo 'compiling..'
-                  sh 'mvn compile'
-	      }
-          }
-          stage('CodeReview'){
-		  
-              steps{
-		    
-		  echo 'codeReview'
-                  sh 'mvn pmd:pmd'
-              }
-          }
-           stage('UnitTest'){
-		  
-              steps{
-	         
-                  sh 'mvn test'
-              }
-               post {
-               success {
-                   junit 'target/surefire-reports/*.xml'
-               }
-           }	
-          }
-          
-          stage('Package'){
-		  
-              steps{
-		  
-                  sh 'mvn package'
-              }
-          }
-	     
-          
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = 'us-east-2'
+    }
+
+    parameters {
+        string(name: 'WAR_SAVE_LOCATION', defaultValue: 'war/', description: 'Specify the location to save the WAR file')
+    }
+
+    stages {
+        stage('Compile') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Code Quality Check') {
+            steps {
+                sh 'mvn pmd:pmd'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'mvn package'
+                archiveArtifacts artifacts: '**/target/*.war', allowEmptyArchive: true
+            }
+        }
+
+        stage('apply') {
+          environment {
+            AWS_ACCESS_KEY_ID = credentials('ACCESS_KEY')
+            AWS_SECRET_ACCESS_KEY = credentials('SECRET_KEY')
+        }
+       steps {
+          sh 'terraform init'
+          sh 'terraform plan'
+          sh 'terraform apply -auto-approve'
+         }
       }
+    }
+
+    post {
+        always {
+            cleanWs() // Clean workspace after the pipeline
+        }
+    }
 }

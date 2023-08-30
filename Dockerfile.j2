@@ -1,0 +1,11 @@
+# Use the official Tomcat image as base
+FROM tomcat:9.0
+
+# Copy the WAR file from the build context to the Tomcat webapps directory
+COPY {{ war_file_path }} /usr/local/tomcat/webapps/
+
+# Expose the default Tomcat port
+EXPOSE 8080
+
+# Start Tomcat
+CMD ["catalina.sh", "run"]
