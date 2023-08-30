@@ -72,11 +72,11 @@ resource "aws_instance" "Java_web" {
    # Local-exec provisioner to save the public IP to a file
 resource "null_resource" "save_ip" {
   triggers = {
-    instance_id = aws_instance.example.id
+    instance_id = aws_instance.Java_web.id
   }
 
   provisioner "local-exec" {
-    command = "echo ${aws_instance.example.public_ip} > myhosts.txt"
+    command = "echo ${aws_instance.Java_web.public_ip} > myhosts.txt"
   }
 }
 
