@@ -7,13 +7,3 @@
       ping:
 
 
----
-- name: Install Python 3 on EC2 Instance
-  hosts: all  # Use the host alias defined in your SSH config
-  become: yes
-
-  tasks:
-    - name: Install Python 3
-      package:
-        name: python3
-        state: present
