@@ -1,23 +1,19 @@
 ---
-- name: Install Python 3 and Docker on Ubuntu
+- name: ping server
+  hosts: all
+  become: yes
+  tasks:
+    - name: ping
+      ping:
+
+
+---
+- name: Install Python 3 on EC2 Instance
   hosts: all  # Use the host alias defined in your SSH config
-  become: yes  # Enable privilege escalation
+  become: yes
 
   tasks:
-    - name: Update package cache
-      apt:
-        update_cache: yes
-
-    - name: Install required packages
-      apt:
-        name: "{{ item }}"
+    - name: Install Python 3
+      package:
+        name: python3
         state: present
-      loop:
-        - python3
-        - docker.io
-
-    - name: Start and enable Docker service
-      systemd:
-        name: docker
-        enabled: yes
-        state: started

@@ -53,28 +53,25 @@ resource "aws_instance" "Java_web" {
   associate_public_ip_address = true
   #  vpc_id     = local.vpc_id
   security_groups = [aws_security_group.Java_proj.name]
-
+  
+  
   tags = {
     Name = "Java test"
-  }
-  provisioner "local-exec" {
-    command = "echo '${aws_instance.Java_web.public_ip}' > ansible_inventory.txt"
-  }
-  
-  
-  connection {
-    type        = "ssh"
-    user        = local.ssh_user
-    #private_key = file(local.private_key_path2)
-    host        = self.public_ip
-  }
+     }
+
+# Output the public IP address of the EC2 instance
+output "public_ip" {
+  value = aws_instance.example.public_ip
 }
-
-
-resource "null_resource" "run_ansible" {
-  depends_on = [aws_instance.Java_web]
-
-  provisioner "local-exec" {
-    command = "ansible-playbook -i host1 config.yml --user=ubuntu --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
-  }
+}
+     
+  
+  
+ # Use a local-exec provisioner to run an Ansible playbook
+provisioner "local-exec" {
+  command = <<EOT
+    export ANSIBLE_SSH_USER=${local.ssh_user}
+    export ANSIBLE_SSH_PRIVATE_KEY=${local.private_key_path}
+    ansible-playbook -i "${aws_instance.example.public_ip}," config.yml
+  EOT
 }
