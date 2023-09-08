@@ -63,11 +63,7 @@ resource "aws_instance" "Java_web" {
 output "public_ip" {
   value = aws_instance.example.public_ip
 }
-}
-     
-  
-  
- # Use a local-exec provisioner to run an Ansible playbook
+# Use a local-exec provisioner to run an Ansible playbook
 provisioner "local-exec" {
   command = <<EOT
     export ANSIBLE_SSH_USER=${local.ssh_user}
@@ -75,3 +71,31 @@ provisioner "local-exec" {
     ansible-playbook -i "${aws_instance.example.public_ip}," config.yml
   EOT
 }
+
+}
+     
+  
+  
+ 
+  
+
+
+
+/*resource "null_resource" "run_ansible" {
+  depends_on = [aws_instance.Java_web]
+
+  provisioner "local-exec" {
+    command = "ansible-playbook -i host1 try.yml --user=ubuntu --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
+  }
+}*/
+
+
+
+
+
+
+  
+
+
+
+
