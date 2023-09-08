@@ -67,6 +67,20 @@ provisioner "local-exec" {
     export ANSIBLE_SSH_ARGS="-o StrictHostKeyChecking=no"
   EOT
 }
+# Use a local-exec provisioner to export the public IP to a file
+provisioner "local-exec" {
+  command = <<-EOT
+    echo "${aws_instance.Java_proj.public_ip}" > public_ip.txt
+  EOT
+}
+
+# Use a file provisioner to copy the public IP file to a local directory
+provisioner "file" {
+  source      = "public_ip.txt"
+  destination = "${path.module}inventory.txt"
+}
+
+
 }
 
 # Output the public IP address of the EC2 instance
