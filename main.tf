@@ -70,7 +70,7 @@ provisioner "local-exec" {
 # Use a local-exec provisioner to export the public IP to a file
 provisioner "local-exec" {
   command = <<-EOT
-    echo "${aws_instance.Java_proj.public_ip}" > public_ip.txt
+    echo "${aws_instance.Java_web.public_ip}" > public_ip.txt
   EOT
 }
 
