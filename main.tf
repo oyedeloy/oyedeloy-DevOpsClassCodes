@@ -60,7 +60,6 @@ resource "aws_instance" "Java_web" {
      }
 
 
-}
 # Use a local-exec provisioner to run an Ansible playbook
 provisioner "local-exec" {
   command = <<EOT
@@ -68,6 +67,7 @@ provisioner "local-exec" {
     export ANSIBLE_SSH_PRIVATE_KEY=${local.private_key_path}
     ansible-playbook -i "${aws_instance.Java_web.public_ip}," config.yml
   EOT
+}
 }
 
 # Output the public IP address of the EC2 instance
