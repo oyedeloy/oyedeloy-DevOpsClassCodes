@@ -63,10 +63,10 @@ resource "aws_instance" "Java_web" {
 # Use a local-exec provisioner to run an Ansible playbook
 provisioner "local-exec" {
   command = <<EOT
-    export ANSIBLE_SSH_USER=${local.ssh_user}
-    export ANSIBLE_SSH_PRIVATE_KEY=${local.private_key_path2}
+    #export ANSIBLE_SSH_USER=${local.ssh_user}
+    #export ANSIBLE_SSH_PRIVATE_KEY=${local.private_key_path2}
     export ANSIBLE_SSH_ARGS="-o StrictHostKeyChecking=no"
-    ansible-playbook -i "${aws_instance.Java_web.public_ip}," config.yml
+    ansible-playbook -i "${aws_instance.Java_web.public_ip}," config.yml --user=ubuntu --key-file '/home/ubuntu/mykeys2/Java_key.pem'
   EOT
 }
 }
