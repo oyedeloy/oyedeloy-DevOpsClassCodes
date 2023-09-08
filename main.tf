@@ -64,7 +64,7 @@ resource "aws_instance" "Java_web" {
 provisioner "local-exec" {
   command = <<EOT
     export ANSIBLE_SSH_USER=${local.ssh_user}
-    export ANSIBLE_SSH_PRIVATE_KEY=${local.private_key_path}
+    export ANSIBLE_SSH_PRIVATE_KEY=${local.private_key_path2}
     ansible-playbook -i "${aws_instance.Java_web.public_ip}," config.yml
   EOT
 }
