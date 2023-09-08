@@ -59,9 +59,7 @@ resource "aws_instance" "Java_web" {
     Name = "Java test"
      }
 
-# Output the public IP address of the EC2 instance
-output "public_ip" {
-  value = aws_instance.Java_web.public_ip
+
 }
 # Use a local-exec provisioner to run an Ansible playbook
 provisioner "local-exec" {
@@ -72,30 +70,7 @@ provisioner "local-exec" {
   EOT
 }
 
+# Output the public IP address of the EC2 instance
+output "public_ip" {
+  value = aws_instance.Java_web.public_ip
 }
-     
-  
-  
- 
-  
-
-
-
-/*resource "null_resource" "run_ansible" {
-  depends_on = [aws_instance.Java_web]
-
-  provisioner "local-exec" {
-    command = "ansible-playbook -i host1 try.yml --user=ubuntu --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
-  }
-}*/
-
-
-
-
-
-
-  
-
-
-
-
