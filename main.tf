@@ -86,7 +86,7 @@ provisioner "local-exec" {
 
 provisioner "local-exec" {
     #To execute the ansible playbook
-    command = "ansible-playbook -i ${local.nventory_path} --user ${local.ssh_user} --private-key ${local.private_key_path2} config.yml"
+    command = "ansible-playbook -i ${local.inventory_path} --user ${local.ssh_user} --private-key ${local.private_key_path2} config.yml"
   }
 # Use a file provisioner to copy the public IP file to a local directory
 /*provisioner "file" {
