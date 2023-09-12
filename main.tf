@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 locals {
-  ami_id          = "ami-024e6efaf93d85776"
+  ami_id          = "ami-00a9282ce3b5ddfb1"
   vpc_id          = "vpc-058d2f6e"
   ssh_user        = "ubuntu"
   key_name        = "Java_key2"
