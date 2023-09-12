@@ -7,8 +7,8 @@ locals {
   vpc_id          = "vpc-058d2f6e"
   ssh_user        = "ubuntu"
   key_name        = "Java_key"
-  private_key_path = "/home/ubuntu/mykeys/Java_key.pem"
-  private_key_path2 = "/home/ubuntu/mykeys2/Java_key.pem"
+  private_key_path = "/home/dele/Java_key.pem"
+  
 }
 
 resource "aws_security_group" "Java_proj" {
