@@ -70,15 +70,15 @@ provisioner "local-exec" {
 # Use a local-exec provisioner to export the public IP to a file
 provisioner "local-exec" {
   command = <<-EOT
-    echo "${aws_instance.Java_web.public_ip}" > public_ip.txt
+    echo "${aws_instance.Java_web.public_ip}" > inventory
   EOT
 }
 
 # Use a file provisioner to copy the public IP file to a local directory
-provisioner "file" {
+/*provisioner "file" {
   source      = "public_ip.txt"
   destination = "${path.module}inventory.txt"
-}
+}*/
 
 
 }
