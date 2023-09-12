@@ -6,7 +6,7 @@ locals {
   ami_id          = "ami-024e6efaf93d85776"
   vpc_id          = "vpc-058d2f6e"
   ssh_user        = "ubuntu"
-  key_name        = "Java_key"
+  key_name        = "Java_key2"
   private_key_path = "/home/dele/Java_key2.pem"
   private_key_path2 = "/home/dele/mykeys/Java_key2.pem"
   inventory_path = "/home/dele/Inventory"
@@ -65,7 +65,7 @@ resource "aws_instance" "Java_web" {
     type = "ssh"
     host = self.public_ip
     user = local.ssh_user
-    private_key = file(local.private_key_path2)
+    private_key = file(local.private_key_path)
     timeout = "4m"
   }
 
@@ -86,7 +86,7 @@ provisioner "local-exec" {
 
 provisioner "local-exec" {
     #To execute the ansible playbook
-    command = "ansible-playbook -i ${local.inventory_path} --user ${local.ssh_user} --private-key ${local.private_key_path2} config.yml"
+    command = "ansible-playbook -i ${local.inventory_path} --user ${local.ssh_user} --private-key ${local.private_key_path} config.yml"
   }
 # Use a file provisioner to copy the public IP file to a local directory
 /*provisioner "file" {
