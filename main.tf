@@ -8,6 +8,7 @@ locals {
   ssh_user        = "ubuntu"
   key_name        = "Java_key"
   private_key_path = "/home/dele/Java_key.pem"
+  private_key_path2 = "/home/dele/mykeys/Java_key.pem"
   
 }
 
@@ -18,7 +19,7 @@ resource "aws_security_group" "Java_proj" {
   // Ingress rules
   ingress {
     from_port = 22
-    to_port   = 22
+    to_port   = 22ls
     protocol  = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -84,7 +85,7 @@ provisioner "local-exec" {
 
 provisioner "local-exec" {
     #To execute the ansible playbook
-    command = "ansible-playbook -i Inventory --user ${local.ssh_user} --private-key ${local.private_key_path} config.yml"
+    command = "ansible-playbook -i Inventory --user ${local.ssh_user} --private-key ${local.private_key_path2} config.yml"
   }
 # Use a file provisioner to copy the public IP file to a local directory
 /*provisioner "file" {
