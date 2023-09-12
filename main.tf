@@ -19,7 +19,7 @@ resource "aws_security_group" "Java_proj" {
   // Ingress rules
   ingress {
     from_port = 22
-    to_port   = 22ls
+    to_port   = 22
     protocol  = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
