@@ -7,8 +7,8 @@ locals {
   vpc_id          = "vpc-058d2f6e"
   ssh_user        = "ubuntu"
   key_name        = "Java_key"
-  private_key_path = "/home/dele/Java_key.pem"
-  private_key_path2 = "/home/dele/mykeys/Java_key.pem"
+  private_key_path = "/home/dele/Java_key2.pem"
+  private_key_path2 = "/home/dele/mykeys/Java_key2.pem"
   inventory_path = "/home/dele/Inventory"
   
 }
