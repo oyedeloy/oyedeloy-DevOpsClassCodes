@@ -9,6 +9,7 @@ locals {
   key_name        = "Java_key"
   private_key_path = "/home/dele/Java_key.pem"
   private_key_path2 = "/home/dele/mykeys/Java_key.pem"
+  inventory_path = "/home/dele/Inventory"
   
 }
 
@@ -79,13 +80,13 @@ provisioner "local-exec" {
 # Use a local-exec provisioner to export the public IP to a file
 provisioner "local-exec" {
   command = <<-EOT
-    echo "${aws_instance.Java_web.public_ip}" > /home/dele/oyedeloy-DevOpsClassCodes/Inventory
+    echo "${aws_instance.Java_web.public_ip}" > ${local.inventory_path}
   EOT
 }
 
 provisioner "local-exec" {
     #To execute the ansible playbook
-    command = "ansible-playbook -i Inventory --user ${local.ssh_user} --private-key ${local.private_key_path2} config.yml"
+    command = "ansible-playbook -i ${local.nventory_path} --user ${local.ssh_user} --private-key ${local.private_key_path2} config.yml"
   }
 # Use a file provisioner to copy the public IP file to a local directory
 /*provisioner "file" {
