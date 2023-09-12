@@ -64,7 +64,7 @@ resource "aws_instance" "Java_web" {
     type = "ssh"
     host = self.public_ip
     user = local.ssh_user
-    private_key = file(local.private_key_path)
+    private_key = file(local.private_key_path2)
     timeout = "4m"
   }
 
