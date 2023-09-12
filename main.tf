@@ -59,6 +59,14 @@ resource "aws_instance" "Java_web" {
     Name = "Java test"
      }
 
+  connection {
+    type = "ssh"
+    host = self.public_ip
+    user = local.ssh_user
+    private_key = file(local.private_key_path)
+    timeout = "4m"
+  }
+
 
 # Use a local-exec provisioner to run an Ansible playbook
 provisioner "local-exec" {
@@ -74,6 +82,10 @@ provisioner "local-exec" {
   EOT
 }
 
+provisioner "local-exec" {
+    #To execute the ansible playbook
+    command = "ansible-playbook -i Inventory --user ${local.ssh_user} --private-key ${local.private_key_path} config.yml"
+  }
 # Use a file provisioner to copy the public IP file to a local directory
 /*provisioner "file" {
   source      = "public_ip.txt"
