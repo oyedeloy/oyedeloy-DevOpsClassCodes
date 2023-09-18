@@ -55,6 +55,12 @@ resource "aws_instance" "Java_web" {
   associate_public_ip_address = true
   #  vpc_id     = local.vpc_id
   security_groups = [aws_security_group.Java_proj.name]
+
+  user_data = <<-EOF
+              #!/bin/bash
+              apt -y update
+              apt -y install python3
+              EOF
   
   
   tags = {
