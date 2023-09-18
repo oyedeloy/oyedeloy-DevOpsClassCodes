@@ -90,7 +90,7 @@ provisioner "local-exec" {
   EOT
 }
 
-provisioner "local-exec" {
+/*provisioner "local-exec" {
     #To execute the ansible playbook
     command = "ansible-playbook -i ${local.inventory_path} --user ${local.ssh_user} --private-key ${local.private_key_path} config.yml"
   }

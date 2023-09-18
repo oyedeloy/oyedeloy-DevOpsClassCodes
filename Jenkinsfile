@@ -45,5 +45,20 @@ pipeline {
           
          }
       }
+
+        stage('Run Ansible Playbook') {
+            steps {
+                script {
+                    // Add your SSH key credential here for Ansible
+                    sshagent(credentials: ['ec2-user']) {
+                        sh 'ansible-playbook -i /home/dele/Inventory --user ec2-user --private-key /home/dele/Java_key2.pem config.yml -vvv'
+                    }
+                }
+            }
+        }
+
     }
 }
+
+
+
