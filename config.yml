@@ -6,7 +6,7 @@
   become: yes                 # If you need elevated privileges, set to 'yes' and provide sudo password
   vars:
     project_directory: "/home/dele/oyedeloy-DevOpsClassCodes"
-    your_username: "dele"
+    your_username: "root"
   tasks:
     - name: Change to the project directory
       become_user: "{{ your_username }}" # Replace with your username
