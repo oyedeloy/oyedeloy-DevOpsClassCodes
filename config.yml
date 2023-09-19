@@ -1,9 +1,33 @@
-- name: Install Python 3 on EC2 Instance
-  hosts: all  # Use the host alias defined in your SSH config
-  become: yes
+---
+# Execute Maven Build Steps, and Save JAR File Locally
 
+---
+- name: Execute Maven Build Steps
+  hosts: localhost   # Replace with the hostname or group of hosts where you want to run the build
+  become: yes                 # If you need elevated privileges, set to 'yes' and provide sudo password
+  vars:
+    project_directory: "/path/to/your/project/directory"
+    your_username: "dele"
   tasks:
-    - name: Install Python 3
-      package:
-        name: python3
-        state: present
+    - name: Change to the project directory
+      become_user: dele # Replace with your username
+      shell: cd "{{ project_directory }}
+      args:
+        chdir: "{{ project_directory }}"
+
+    - name: Execute Maven Build Steps
+      become_user: dele  # Replace with your username
+      shell: "mvn {{ item }}"
+      args:
+        chdir: "{{ project_directory }}"
+      loop:
+        - compile
+        - test
+        - pmd:pmd
+        - package
+
+    - name: Copy JAR file to local directory
+      become_user: your_username  # Replace with your username
+      copy:
+        src: "/home/dele/oyedeloy-DevOpsClassCodes/target/addressbook.war"  # Path to the generated JAR file
+        dest: "/home/dele/oyedeloy-DevOpsClassCodes/addressbook.war"  # Local directory where you want to save the JAR file

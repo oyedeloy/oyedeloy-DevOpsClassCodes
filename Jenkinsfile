@@ -7,31 +7,7 @@ pipeline {
 
     
 
-    stages {
-        stage('Compile') {
-            steps {
-                sh 'mvn compile'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-
-        stage('Code Quality Check') {
-            steps {
-                sh 'mvn pmd:pmd'
-            }
-        }
-
-        stage('Package') {
-            steps {
-                sh 'mvn package'
-                archiveArtifacts artifacts: '**/target/*.war', allowEmptyArchive: true
-            }
-        }
+    stages {        
 
         stage('apply') {
           environment {
