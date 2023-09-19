@@ -9,8 +9,7 @@ locals {
   key_name        = "Java_key2"
   private_key_path = "/home/dele/Java_key2.pem"
   private_key_path2 = "/home/dele/mykeys/Java_key2.pem"
-  inventory_path = "/home/dele/Inventory"
-  
+  inventory_path = "/home/dele/Inventory"  
 }
 
 resource "aws_security_group" "Java_proj" {
@@ -54,14 +53,7 @@ resource "aws_instance" "Java_web" {
   key_name      = local.key_name
   associate_public_ip_address = true
   #  vpc_id     = local.vpc_id
-  security_groups = [aws_security_group.Java_proj.name]
-
-  user_data = <<-EOF
-              #!/bin/bash
-              apt -y update
-              apt -y install python3
-              EOF
-  
+  security_groups = [aws_security_group.Java_proj.name]  
   
   tags = {
     Name = "Java test"
@@ -89,9 +81,6 @@ provisioner "local-exec" {
     echo "${aws_instance.Java_web.public_ip}" > ${local.inventory_path}
   EOT
 }
-
-
-
 
 }
 
