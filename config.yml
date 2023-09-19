@@ -5,7 +5,7 @@
   hosts: localhost   # Replace with the hostname or group of hosts where you want to run the build
   become: yes                 # If you need elevated privileges, set to 'yes' and provide sudo password
   vars:
-    project_directory: "/path/to/your/project/directory"
+    project_directory: "/home/dele/oyedeloy-DevOpsClassCodes"
     your_username: "dele"
   tasks:
     - name: Change to the project directory
