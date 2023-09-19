@@ -10,7 +10,7 @@
   tasks:
     - name: Change to the project directory
       become_user: "{{ your_username }}" # Replace with your username
-      shell: cd "{{ project_directory }}
+      shell: cd "{{ project_directory }}"
       args:
         chdir: "{{ project_directory }}"
 
