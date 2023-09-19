@@ -1,11 +1,11 @@
 provider "aws" {
   region = "us-east-2"
 }
-
+# We use local variables to simplify values that will be reused throuout the code
 locals {
   ami_id          = "ami-00a9282ce3b5ddfb1"
   vpc_id          = "vpc-058d2f6e"
-  ssh_user        = "ec2-user"
+  ssh_user        = "ec2-user" 
   key_name        = "Java_key2"
   private_key_path = "/home/dele/Java_key2.pem"
   private_key_path2 = "/home/dele/mykeys/Java_key2.pem"
@@ -90,15 +90,7 @@ provisioner "local-exec" {
   EOT
 }
 
-/*provisioner "local-exec" {
-    #To execute the ansible playbook
-    command = "ansible-playbook -i ${local.inventory_path} --user ${local.ssh_user} --private-key ${local.private_key_path} config.yml"
-  }
-# Use a file provisioner to copy the public IP file to a local directory
-/*provisioner "file" {
-  source      = "public_ip.txt"
-  destination = "${path.module}inventory.txt"
-}*/
+
 
 
 }
@@ -107,29 +99,6 @@ provisioner "local-exec" {
 output "public_ip" {
   value = aws_instance.Java_web.public_ip
 }
-     
-  
-  
- 
-  
-
-
-
-/*resource "null_resource" "run_ansible" {
-  depends_on = [aws_instance.Java_web]
-
-  provisioner "local-exec" {
-    command = "ansible-playbook -i host1 try.yml --user=ubuntu --key-file '/home/ubuntu/mykeys2/Java_key.pem'"
-  }
-}*/
-
-
-
-
-
-
-  
-
 
 
 
