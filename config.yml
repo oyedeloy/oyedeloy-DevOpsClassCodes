@@ -1,7 +1,6 @@
 ---
 # Execute Maven Build Steps, and Save JAR File Locally
 
----
 - name: Execute Maven Build Steps
   hosts: localhost   # Replace with the hostname or group of hosts where you want to run the build
   become: yes                 # If you need elevated privileges, set to 'yes' and provide sudo password
