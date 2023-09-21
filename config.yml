@@ -36,7 +36,7 @@
     files_to_copy:
       - "{{ project_directory }}/Dockerfile"
       - "{{ project_directory }}/target/addressbook.war"
-    remote_directory: "/home/ec2-user"  # Use the same project directory on the remote host
+    remote_directory: "/home/ec2-user/Java"  # Use the same project directory on the remote host
     remote_image_name: "my-java-app"
     remote_image_tag: "01"
   tasks:
@@ -54,7 +54,7 @@
   vars:
     remote_username: "ec2-user"
     remote_image_name: "my-java-app"
-    remote_directory: "/home/ec2-user" 
+    remote_directory: "/home/ec2-user/Java" 
     remote_image_tag: "01"
     remote_image_tarball: "/tmp/{{ my-java-app }}.tar"  # Specify the remote path for the image tarball
   tasks:
