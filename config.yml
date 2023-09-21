@@ -28,7 +28,7 @@
         dest: "{{ project_directory }}/addressbook.war"
 
     - name: Build Docker Image Locally
-      dshell: |
+      shell: |
         docker build -t "{{ local_image_name }}:{{ local_image_tag }}" -f Dockerfile "{{ project_directory }}"
       delegate_to: localhost
 
