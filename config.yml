@@ -73,3 +73,6 @@
         ports:
           - "8080:8080"
       become_user: "{{ remote_username }}"
+
+    - debug:
+        var: docker_image_result 
