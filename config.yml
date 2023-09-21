@@ -60,8 +60,7 @@
         rsync_opts: "--chmod=ugo=rwX"
 
     - name: Load Docker Image on Remote Server
-      docker_image_load:
-        src: "/tmp/{{ local_image_name }}.tar"
+      command: "docker load -i {{ remote_image_tarball }}"
       #become_user: "{{ remote_username }}"
       ignore_errors: yes  # Ignore errors if the image is already loaded
 
