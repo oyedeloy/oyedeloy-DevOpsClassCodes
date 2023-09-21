@@ -9,13 +9,13 @@
     your_username: "root"
   tasks:
     - name: Change to the project directory
-      become_user: "{{ your_username }}" # Replace with your username
+      #become_user: "{{ your_username }}" # Replace with your username
       shell: cd "{{ project_directory }}"
       args:
         chdir: "{{ project_directory }}"
 
     - name: Execute Maven Build Steps
-      become_user: "{{ your_username }}"  # Replace with your username
+      #become_user: "{{ your_username }}"  # Replace with your username
       shell: "mvn {{ item }}"
       args:
         chdir: "{{ project_directory }}"
