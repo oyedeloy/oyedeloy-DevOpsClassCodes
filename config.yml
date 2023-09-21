@@ -28,13 +28,10 @@
         dest: "{{ project_directory }}/addressbook.war"
 
     - name: Build Docker Image Locally
-      docker_image:
-        build:
-          path: "{{ project_directory }}"
-          source: "{{ project_directory }}"
-          dockerfile: Dockerfile
-        name: "{{ local_image_name }}:{{ local_image_tag }}"
+      dshell: |
+        docker build -t "{{ local_image_name }}:{{ local_image_tag }}" -f Dockerfile "{{ project_directory }}"
       delegate_to: localhost
+
 
     - name: Save Docker Image as Tarball
       command: "docker save -o {{ local_image_tarball }} {{ local_image_name }}:{{ local_image_tag }}"
