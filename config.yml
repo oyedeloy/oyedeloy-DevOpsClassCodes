@@ -36,9 +36,7 @@
       delegate_to: localhost
 
     - name: Save Docker Image as Tarball
-      docker_image_save:
-        name: "{{ local_image_name }}:{{ local_image_tag }}"
-        dest: "{{ project_directory }}/{{ local_image_name }}.tar"
+      command: "docker save -o {{ local_image_tarball }} {{ local_image_name }}:{{ local_image_tag }}"
       delegate_to: localhost
 
 - name: Copy and Run Docker Image on Remote Server
