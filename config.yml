@@ -27,49 +27,62 @@
         src: "{{ project_directory }}/target/addressbook.war"
         dest: "{{ project_directory }}/addressbook.war"
 
-    - name: Build Docker Image Locally
-      shell: |
-        docker build -t "{{ local_image_name }}:{{ local_image_tag }}" -f Dockerfile "{{ project_directory }}"
-      delegate_to: localhost
 
+- name: Copy Dockerfile and WAR file to Remote Host
+  hosts: your_remote_server   # Replace with the hostname or group of hosts for the remote server
+  become: yes                # If you need elevated privileges, set to 'yes' and provide sudo password
+  vars:
+    project_directory: "/home/dele/oyedeloy-DevOpsClassCodes"  # Your project directory
+    files_to_copy:
+      - "{{ project_directory }}/Dockerfile"
+      - "{{ project_directory }}/target/addressbook.war"
+    remote_directory: "/home/ec2-user"  # Use the same project directory on the remote host
+    remote_image_name: "my-java-app"
+    remote_image_tag: "01"
+  tasks:
+    - name: Copy Files to Remote Host
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "{{ remote_directory }}/"
+        remote_src: yes  # This allows copying from the local path specified in item
+      loop: "{{ files_to_copy }}"
+      when: ansible_loop.index0 == 0
 
-    - name: Save Docker Image as Tarball
-      command: "docker save -o {{ local_image_tarball }} {{ local_image_name }}:{{ local_image_tag }}"
-      delegate_to: localhost
+- name: Build Docker Image on Remote Host
+  hosts: all  # Replace with the hostname or group of hosts for the remote server
+  become: yes                # If you need elevated privileges, set to 'yes' and provide sudo passHostword
+  vars:
+    remote_username: "ec2-user"
+    remote_image_name: "my-java-app"
+    remote_image_tag: "01"
+    remote_image_tarball: "/tmp/{{ my-java-app }}.tar"  # Specify the remote path for the image tarball
+  tasks:
+    - name: Change to the remote project directory
+      ansible.builtin.shell: cd "{{ remote_directory }}"
+      #become_user: "{{ remote_username }}"
 
-- name: Copy and Run Docker Image on Remote Server
+    - name: Build Docker Image on Remote Host
+      ansible.builtin.command: |
+        docker build -t "{{ remote_image_name }}:{{ remote_image_tag }}" -f Dockerfile "{{ remote_directory }}"
+      #become_user: "{{ remote_username }}"
+
+    - name: Save Docker Image as Tarball on Remote Host
+      ansible.builtin.command: "docker save -o {{ remote_image_tarball }} {{ remote_image_name }}:{{ remote_image_tag }}"
+      #become_user: "{{ remote_username }}"
+
+- name: Run Docker Container on Remote Host
   hosts: all   # Replace with the hostname or group of hosts for the remote server
   become: yes                # If you need elevated privileges, set to 'yes' and provide sudo password
   vars:
-    remote_username: "your_remote_username"
-    remote_image_name: "my-Java-app"
+    remote_username: "{{ remote_username }}"
+    remote_image_name: "my-java-app"
     remote_image_tag: "01"
   tasks:
-    - name: Copy Docker Image Tarball to Remote Server
-      copy:
-        src: "/home/dele/{{ local_image_name }}.tar"
-        dest: "/tmp/{{ local_image_name }}.tar"
-
-    - name: Transfer Docker Image Tarball to Remote Server
-      ansible.builtin.synchronize:
-        mode: pull
-        src: "/tmp/{{ local_image_name }}.tar"
-        dest: "/tmp/{{ local_image_name }}.tar"
-        rsync_opts: "--chmod=ugo=rwX"
-
-    - name: Load Docker Image on Remote Server
-      command: "docker load -i {{ remote_image_tarball }}"
-      #become_user: "{{ remote_username }}"
-      ignore_errors: yes  # Ignore errors if the image is already loaded
-
-    - name: Run Docker Container on Remote Server
+    - name: Run Docker Container on Remote Host
       docker_container:
         name: "{{ remote_image_name }}"
         image: "{{ remote_image_name }}:{{ remote_image_tag }}"
         state: started
         ports:
           - "8080:8080"
-      become_user: "{{ remote_username }}"
-
-    - debug:
-        var: docker_image_result 
+      #become_user: "{{ remote_username }}"
