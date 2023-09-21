@@ -54,6 +54,7 @@
   vars:
     remote_username: "ec2-user"
     remote_image_name: "my-java-app"
+    remote_directory: "/home/ec2-user" 
     remote_image_tag: "01"
     remote_image_tarball: "/tmp/{{ my-java-app }}.tar"  # Specify the remote path for the image tarball
   tasks:
