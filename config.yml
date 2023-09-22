@@ -53,7 +53,7 @@
   tasks:
     - name: Install Docker
       ansible.builtin.package:
-        name: docker.io,docker,docker-ce
+        name: docker
         state: present
       when: ansible_pkg_mgr == "apt"  # For Debian/Ubuntu-based systems
 
