@@ -52,10 +52,16 @@
   become: yes  # If you need elevated privileges, set to 'yes' and provide sudo password
   tasks:
     - name: Install Docker
-      apt:
-        name: docker.io
+      ansible.builtin.package:
+        name: docker.io,docker,docker-ce
         state: present
-      when: ansible_os_family == "Debian"  # Adjust this condition for non-Debian-based systems
+      when: ansible_pkg_mgr == "apt"  # For Debian/Ubuntu-based systems
+
+    - name: Install Docker
+      ansible.builtin.package:
+        name: docker
+        state: present
+      when: ansible_pkg_mgr == "yum"  # For CentOS/RedHat-based systems
 
 
 - name: Pull Docker Image from Docker Hub and Run Container
