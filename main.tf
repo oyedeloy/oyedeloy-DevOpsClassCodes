@@ -5,7 +5,7 @@ provider "aws" {
 locals {
   ami_id          = "ami-024e6efaf93d85776"
   vpc_id          = "vpc-058d2f6e"
-  ssh_user        = "ec2-user" 
+  ssh_user        = "ubuntu" 
   key_name        = "Java_key2"
   private_key_path = "/home/dele/Java_key2.pem"
   private_key_path2 = "/home/dele/mykeys/Java_key2.pem"

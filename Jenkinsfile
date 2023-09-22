@@ -27,7 +27,7 @@ pipeline {
                 script {
                     // Add your SSH key credential here for Ansible
                     sshagent(credentials: ['ec2-user']) {
-                        sh 'sudo ansible-playbook -i /home/dele/Inventory --user ec2-user --private-key /home/dele/Java_key2.pem config.yml --vault-password-file /home/dele/vault_password.txt'
+                        sh 'sudo ansible-playbook -i /home/dele/Inventory --user ubuntu --private-key /home/dele/Java_key2.pem config.yml --vault-password-file /home/dele/vault_password.txt'
                     }
                 }
             }
