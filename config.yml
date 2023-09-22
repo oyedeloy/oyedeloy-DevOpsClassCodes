@@ -4,7 +4,7 @@
   become: yes
   vars:
     project_directory: "/home/dele/oyedeloy-DevOpsClassCodes"
-    local_image_name: "my-java-app"
+    local_image_name: "oyedeloy/my-java-app"
     local_image_tag: "01"
     dockerhub_credentials_file: "/home/dele/dockerhub_credentials.yml"  # Name of your Ansible Vault file
 
