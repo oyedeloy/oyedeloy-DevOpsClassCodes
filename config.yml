@@ -41,6 +41,7 @@
         password: "{{ dockerhub_password }}"
 
     - name: Push Docker Image to Docker Hub
-      docker_image:
-        name: "{{ local_image_name }}:{{ local_image_tag }}"
-        push: yes
+      shell: |
+        docker login -u {{ dockerhub_username }} -p {{ dockerhub_password }}
+        docker push {{ dockerhub_username }}/my-java-app:{{ local_image_tag }}
+      delegate_to: localhost
