@@ -3,7 +3,7 @@ provider "aws" {
 }
 # We use local variables to simplify values that will be reused throuout the code
 locals {
-  ami_id          = "ami-00a9282ce3b5ddfb1"
+  ami_id          = "ami-024e6efaf93d85776"
   vpc_id          = "vpc-058d2f6e"
   ssh_user        = "ec2-user" 
   key_name        = "Java_key2"
