@@ -11,7 +11,7 @@ pipeline {
 
         stage('apply') {
           environment {
-            AWS_ACCESS_KEY_ID = credentials('ACCESS_KEY')  #Add AWS credentials.
+            AWS_ACCESS_KEY_ID = credentials('ACCESS_KEY')  //dd AWS credentials.
             AWS_SECRET_ACCESS_KEY = credentials('SECRET_KEY')
         }
        steps {
