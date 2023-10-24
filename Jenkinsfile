@@ -10,7 +10,7 @@ pipeline {
             }
         }
 
-        stage('Build and Push Docker Image') {
+        /*stage('Build and Push Docker Image') {
             steps {
                 script {
                     def dockerImage = 'Address_book'
@@ -19,8 +19,8 @@ pipeline {
                     // Log in to Docker Hub using Jenkins credentials
                     withCredentials([usernamePassword(credentialsId: 'Docker_hub', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
                         sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
-                        /*#sh "docker build -t ${dockerImage}:${dockerTag} -f Dockerfile ."
-                        #sh "docker push ${dockerImage}:${dockerTag}"*/
+                        #sh "docker build -t ${dockerImage}:${dockerTag} -f Dockerfile ."
+                        #sh "docker push ${dockerImage}:${dockerTag}"
                     }
                 }
             }
@@ -34,5 +34,5 @@ pipeline {
         failure {
             echo 'Docker image build and push to Docker Hub failed.'
         }
-    }
+    }*/
 }
