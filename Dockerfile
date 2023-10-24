@@ -2,8 +2,7 @@
 FROM ubuntu:20.04
 
 # Set environment variable for the War file (replace with your actual War file name)
-ENV addressbook.war
-
+ENV WAR_FILE=addressbook.war
 # Copy your War file into the container
 COPY $WAR_FILE /app/
 
