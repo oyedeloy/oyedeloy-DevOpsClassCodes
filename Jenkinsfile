@@ -7,7 +7,7 @@ pipeline {
                 // Checkout your source code from the Git repository
                 // Replace the URL with your Git repository URL and specify the branch
                 script {
-                    checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: 'https://github.com/your/repo.git']])
+                    checkout([$class: 'GitSCM', branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/oyedeloy/oyedeloy-DevOpsClassCodes.git']])
                 }
             }
         }
