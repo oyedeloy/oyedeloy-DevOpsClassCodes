@@ -1,14 +1,14 @@
-# Use the official Tomcat base image
-FROM tomcat:9.0-jre11
+# Use Ubuntu as the base image
+FROM ubuntu:20.04
 
-# Remove the default Tomcat applications
-RUN rm -rf /usr/local/tomcat/webapps/*
+# Set environment variable for the War file (replace with your actual War file name)
+ENV addressbook.war
 
-# Copy your WAR file into the Tomcat webapps directory
-COPY addressbook.war /usr/local/tomcat/webapps/ROOT.war
+# Copy your War file into the container
+COPY $WAR_FILE /app/
 
-# Expose the default Tomcat port
+# Expose the port your application will run on (if necessary)
 EXPOSE 8080
 
-# Start Tomcat
-CMD ["catalina.sh", "run"]
+# Start your application (adjust the command as needed)
+CMD ["java", "-jar", "/app/$WAR_FILE"]
