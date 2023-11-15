@@ -5,7 +5,7 @@ pipeline {
         stage('Git Checkout') {
             steps {
                 script {
-                    checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: 'https://github.com/oyedeloy/oyedeloy-DevOpsClassCodes.git']]])
+                    checkout([$class: 'GitSCM', branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/oyedeloy/oyedeloy-DevOpsClassCodes.git']]])
                 }
             }
         }
