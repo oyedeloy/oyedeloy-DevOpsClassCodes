@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Define Docker image and tag
         DOCKER_IMAGE = 'address-book'
-        DOCKER_TAG = 'latest'
+        DOCKER_TAG = 'vers_00101'
         // Define registry credentials ID
         DOCKER_CREDENTIALS_ID = 'Docker_hub'
     }
