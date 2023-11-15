@@ -1,22 +1,35 @@
 pipeline {
     agent any
 
+    environment {
+        // Define Docker image and tag
+        DOCKER_IMAGE = 'address-book'
+        DOCKER_TAG = 'latest'
+        // Define registry credentials ID
+        DOCKER_CREDENTIALS_ID = 'Docker_hub'
+    }
+
     stages {
         stage('Build and Push Docker Image') {
             steps {
                 script {
-                    def dockerImage = 'Address_book'
-                    def dockerTag = 'Version-001'
+                    // Pulling Docker image
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
+                        def app = docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}")
 
-                    // Log in to Docker Hub using Jenkins credentials
-                    withCredentials([usernamePassword(credentialsId: 'Docker_hub', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                        sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
-                        sh "docker build -t ${dockerImage}:${dockerTag} -f Dockerfile ."
-                        sh "docker push ${dockerImage}:${dockerTag}"
+                        app.pull() // Optional: Pull the latest image for caching
+                        
+                        // Building Docker image
+                        app.build("-f Dockerfile .")
+
+                        // Pushing Docker image
+                        app.push()
                     }
                 }
             }
         }
+
+        // Other stages like testing, deployment, etc., can go here
     }
 
     post {
