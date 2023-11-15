@@ -16,9 +16,7 @@ pipeline {
                     // Pulling Docker image
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
                         def app = docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}")
-
-                        app.pull() // Optional: Pull the latest image for caching
-                        
+                                                
                         // Building Docker image
                         app.build("-f Dockerfile .")
 
