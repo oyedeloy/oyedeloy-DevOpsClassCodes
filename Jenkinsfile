@@ -2,14 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Git Checkout') {
-            steps {
-                script {
-                    checkout([$class: 'GitSCM', branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/oyedeloy/oyedeloy-DevOpsClassCodes.git']]])
-                }
-            }
-        }
-
         stage('Build and Push Docker Image') {
             steps {
                 script {
