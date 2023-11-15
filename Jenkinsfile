@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         // Define Docker image and tag
-        DOCKER_IMAGE = 'address-book'
-        DOCKER_TAG = 'vers_00101'
+        DOCKER_IMAGE = 'your-docker-image' // Replace with your actual Docker image name
+        DOCKER_TAG = 'latest' // Replace with your actual Docker tag
         // Define registry credentials ID
         DOCKER_CREDENTIALS_ID = 'Docker_hub'
     }
@@ -13,12 +13,10 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 script {
-                    // Pulling Docker image
+                    // Log in to Docker Hub and build/push the Docker image
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
-                        def app = docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}")
-                                                
                         // Building Docker image
-                        app.build("-f Dockerfile .")
+                        def app = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}", "-f Dockerfile .")
 
                         // Pushing Docker image
                         app.push()
@@ -27,7 +25,7 @@ pipeline {
             }
         }
 
-        // Other stages like testing, deployment, etc., can go here
+        // You can add other stages like testing, deployment, etc., here
     }
 
     post {
