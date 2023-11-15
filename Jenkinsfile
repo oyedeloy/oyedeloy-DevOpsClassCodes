@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         // Define Docker image and tag
-        DOCKER_IMAGE = 'address-book' // Replace with your actual Docker image name
-        DOCKER_TAG = 'oyedeloy/addressbook:latest' // Replace with your actual Docker tag
+        DOCKER_IMAGE = 'oyedeloy/address-book' // Replace with your actual Docker image name
+        DOCKER_TAG = 'Version_01' // Replace with your actual Docker tag
         // Define registry credentials ID
         DOCKER_CREDENTIALS_ID = 'Docker_hub'
     }
